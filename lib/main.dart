@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'feature/home/view/home_view.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -13,22 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
-      home: const BasicView(),
-    );
-  }
-}
-
-class BasicView extends StatefulWidget {
-  const BasicView({super.key});
-  @override
-  State<BasicView> createState() => _BasicViewState();
-}
-
-class _BasicViewState extends State<BasicView> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
+      home: const HomeView(),
     );
   }
 }
