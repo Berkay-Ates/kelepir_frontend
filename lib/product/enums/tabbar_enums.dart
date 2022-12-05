@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 
-enum Tabs { map, list, profile, extra }
+enum TabEnums { map, list, profile, extra }
 
-extension UpperCase on Tabs {
+extension UpperCase on TabEnums {
   String upperCaseFirstLetter() {
     return name.toUpperCase();
   }
 
   IconData getIcons() {
     switch (this) {
-      case Tabs.map:
-        return Icons.location_on_outlined;
-      case Tabs.list:
+      case TabEnums.map:
+        return Icons.pin_drop_outlined;
+      case TabEnums.list:
         return Icons.shopify_outlined;
-      case Tabs.profile:
+      case TabEnums.profile:
         return Icons.person_outline_outlined;
-      case Tabs.extra:
+      case TabEnums.extra:
         return Icons.extension_rounded;
     }
   }

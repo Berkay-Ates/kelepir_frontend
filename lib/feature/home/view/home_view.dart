@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kelepir/product/constants/ic_sizes/Icon_Size.dart';
+import 'package:kelepir/product/constants/ic_sizes/icon_size.dart';
 import 'package:kelepir/product/constants/margins/margins.dart';
+import 'package:kelepir/product/constants/paddings/project_paddings.dart';
 import 'package:kelepir/product/widgets/dummyViews.dart';
 import '../../../product/enums/tabbar_enums.dart';
 
@@ -12,24 +13,35 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
   late final _tabController;
+  int _selectedIndx = 0;
   final String title = 'Home View';
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: Tabs.values.length, vsync: this);
+    _tabController = TabController(length: TabEnums.values.length, vsync: this);
+  }
+
+  void setTabIndx(int index) {
+    _tabController.animateTo(index);
+    _selectedIndx = index;
   }
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: Tabs.values.length,
+        length: TabEnums.values.length,
         child: Scaffold(
-          appBar: AppBar(title: Text(title), elevation: 0, backgroundColor: Colors.transparent),
+          extendBody: true,
+          appBar: AppBar(
+            centerTitle: true,
+            title: Text(title),
+            elevation: 0,
+          ),
           floatingActionButton: FloatingActionButton(onPressed: (() {}), child: const Icon(Icons.add_a_photo_outlined)),
           floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
           drawer: Drawer(
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(ProjectPaddings.smallx3),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
@@ -42,13 +54,29 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
             ),
           ),
           bottomNavigationBar: BottomAppBar(
-            color: Colors.redAccent,
+            color: Colors.blue[800],
             shape: const CircularNotchedRectangle(),
             notchMargin: ProjectMargins.nothcedMargin,
-            child: TabBar(
-                padding: EdgeInsets.zero,
-                controller: _tabController,
-                tabs: Tabs.values.map((e) => Tab(child: Icon(e.getIcons(), size: IconSizes.iConLargeSize))).toList()),
+            child: Row(
+                children: TabEnums.values
+                    .map((e) => Expanded(
+                        flex: 1,
+                        child: Tab(
+                          iconMargin: const EdgeInsets.all(ProjectMargins.smallMargin),
+                          icon: IconButton(
+                            padding: EdgeInsets.zero,
+                            onPressed: () {
+                              setTabIndx(e.index);
+                              setState(() {});
+                            },
+                            icon: Icon(e.getIcons()),
+                            color: _selectedIndx == e.index ? Colors.white : Colors.white54,
+                            iconSize: _selectedIndx == e.index
+                                ? ProjectIconSizes.iConTabbarSelected
+                                : ProjectIconSizes.iConTabbarnormal,
+                          ),
+                        )))
+                    .toList()),
           ),
           body: TabBarView(
             controller: _tabController,
