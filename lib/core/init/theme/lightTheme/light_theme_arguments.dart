@@ -20,5 +20,4 @@ class LightThemeArguments {
 }
 
 
-
 //* there are two type of singleton structure bearer and lazy we will prefer lazy one or bearer
