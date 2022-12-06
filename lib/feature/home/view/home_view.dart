@@ -34,7 +34,6 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
     return DefaultTabController(
         length: TabEnums.values.length,
         child: Scaffold(
-          backgroundColor: Colors.amber,
           extendBody: true,
           appBar: null,
           floatingActionButton: FloatingActionButton(
