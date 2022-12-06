@@ -4,8 +4,9 @@ import 'package:kelepir/product/constants/margins/margins.dart';
 import 'package:kelepir/product/constants/paddings/project_paddings.dart';
 import 'package:kelepir/product/widgets/dummyViews.dart';
 import 'package:kelepir/product/constants/durations/project_durations.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:anim_search_bar/anim_search_bar.dart';
 import '../../../product/enums/tabbar_enums.dart';
+import 'dart:math';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -33,6 +34,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
     return DefaultTabController(
         length: TabEnums.values.length,
         child: Scaffold(
+          backgroundColor: Colors.amber,
           extendBody: true,
           appBar: null,
           floatingActionButton: FloatingActionButton(
@@ -83,7 +85,6 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                     .toList()),
           ),
           body: Stack(
-            alignment: Alignment.topRight,
             children: [
               TabBarView(
                 controller: _tabController,
@@ -94,90 +95,43 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                   DummyViews(infoText: 'Extra page'),
                 ],
               ),
-              Searchbar(),
+              MyApp(),
             ],
           ),
         ));
   }
 }
 
-class Searchbar extends StatefulWidget {
+class MyApp extends StatefulWidget {
   @override
-  State<Searchbar> createState() => _SearchbarState();
+  _MyAppState createState() => _MyAppState();
 }
 
-class _SearchbarState extends State<Searchbar> {
-  bool _searchbartoggle = false;
-  FocusNode searchBarFocus = FocusNode();
+int toggle = 0;
+
+class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
+  late TextEditingController _textEditingController;
+  @override
+  void initState() {
+    super.initState();
+    _textEditingController = TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedCrossFade(
-      duration: ProjectDurations.lowDuration,
-      firstChild: Padding(
-        padding: EdgeInsets.fromLTRB(0, ProjectMargins.searchBarMargin * 2,
-            ProjectMargins.searchBarMargin, 0),
-        child: Container(
-          height: ProjectIconSizes.iConSearchBar,
-          width: MediaQuery.of(context).size.width * 0.90,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(25),
-          ),
-          child: Row(
-            children: [
-              IconButton(
-                onPressed: () {
-                  _searchbartoggle = !_searchbartoggle;
-                  setState(() {});
-                },
-                icon: Icon(
-                  FontAwesomeIcons.circleXmark,
-                ),
-              ),
-              Expanded(
-                child: TextField(
-                  focusNode: searchBarFocus,
-                  textInputAction: TextInputAction.none,
-                  autofocus: _searchbartoggle,
-                  decoration: InputDecoration(
-                    hintText: 'Buradan arayın',
-                    border: InputBorder.none,
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-      secondChild: InkWell(
-        onTap: () async {
-          _searchbartoggle = !_searchbartoggle;
-          setState(() {});
-          await Future.delayed(ProjectDurations.lowDuration);
-          searchBarFocus.requestFocus();
+    return Padding(
+      padding: const EdgeInsets.only(
+          top: ProjectMargins.searchBarMargin * 1.5,
+          left: ProjectMargins.searchBarMargin),
+      child: AnimSearchBar(
+        width: MediaQuery.of(context).size.width * 0.9,
+        textController: _textEditingController,
+        onSuffixTap: () {
+          setState(() {
+            _textEditingController.clear();
+          });
         },
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(
-              0,
-              ProjectMargins.searchBarMargin * 2,
-              ProjectMargins.searchBarMargin,
-              0),
-          child: Container(
-            height: ProjectIconSizes.iConSearchBar,
-            width: ProjectIconSizes.iConSearchBar,
-            decoration: BoxDecoration(
-              borderRadius:
-                  BorderRadius.circular(ProjectIconSizes.iConSearchBar),
-            ),
-            child: const Icon(
-              Icons.search,
-            ),
-          ),
-        ),
       ),
-      crossFadeState: _searchbartoggle
-          ? CrossFadeState.showFirst
-          : CrossFadeState.showSecond,
     );
   }
 }
