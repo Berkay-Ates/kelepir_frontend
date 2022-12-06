@@ -3,6 +3,8 @@ import 'package:kelepir/product/constants/ic_sizes/icon_size.dart';
 import 'package:kelepir/product/constants/margins/margins.dart';
 import 'package:kelepir/product/constants/paddings/project_paddings.dart';
 import 'package:kelepir/product/widgets/dummyViews.dart';
+import 'package:kelepir/product/constants/durations/project_durations.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../product/enums/tabbar_enums.dart';
 
 class HomeView extends StatefulWidget {
@@ -32,13 +34,12 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
         length: TabEnums.values.length,
         child: Scaffold(
           extendBody: true,
-          appBar: AppBar(
-            centerTitle: true,
-            title: Text(title),
-            elevation: 0,
-          ),
-          floatingActionButton: FloatingActionButton(onPressed: (() {}), child: const Icon(Icons.add_a_photo_outlined)),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          appBar: null,
+          floatingActionButton: FloatingActionButton(
+              onPressed: (() {}),
+              child: const Icon(Icons.add_a_photo_outlined)),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
           drawer: Drawer(
             child: Padding(
               padding: const EdgeInsets.all(ProjectPaddings.smallx3),
@@ -62,7 +63,8 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                     .map((e) => Expanded(
                         flex: 1,
                         child: Tab(
-                          iconMargin: const EdgeInsets.all(ProjectMargins.smallMargin),
+                          iconMargin:
+                              const EdgeInsets.all(ProjectMargins.smallMargin),
                           icon: IconButton(
                             padding: EdgeInsets.zero,
                             onPressed: () {
@@ -70,7 +72,9 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                               setState(() {});
                             },
                             icon: Icon(e.getIcons()),
-                            color: _selectedIndx == e.index ? Colors.white : Colors.white54,
+                            color: _selectedIndx == e.index
+                                ? Colors.white
+                                : Colors.white54,
                             iconSize: _selectedIndx == e.index
                                 ? ProjectIconSizes.iConTabbarSelected
                                 : ProjectIconSizes.iConTabbarnormal,
@@ -78,15 +82,108 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                         )))
                     .toList()),
           ),
-          body: TabBarView(
-            controller: _tabController,
-            children: const [
-              DummyViews(infoText: 'Map page'),
-              DummyViews(infoText: 'List page'),
-              DummyViews(infoText: 'Profile page'),
-              DummyViews(infoText: 'Extra page'),
+          body: Stack(
+            alignment: Alignment.topRight,
+            children: [
+              TabBarView(
+                controller: _tabController,
+                children: const [
+                  DummyViews(infoText: 'Map page'),
+                  DummyViews(infoText: 'List page'),
+                  DummyViews(infoText: 'Profile page'),
+                  DummyViews(infoText: 'Extra page'),
+                ],
+              ),
+              Searchbar(),
             ],
           ),
         ));
+  }
+}
+
+class Searchbar extends StatefulWidget {
+  @override
+  State<Searchbar> createState() => _SearchbarState();
+}
+
+class _SearchbarState extends State<Searchbar> {
+  bool _searchbartoggle = false;
+  FocusNode searchBarFocus = FocusNode();
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedCrossFade(
+      duration: ProjectDurations.lowDuration,
+      firstChild: Padding(
+        padding: EdgeInsets.fromLTRB(0, ProjectMargins.searchBarMargin * 2,
+            ProjectMargins.searchBarMargin, 0),
+        child: Container(
+          height: ProjectIconSizes.iConSearchBar,
+          width: MediaQuery.of(context).size.width * 0.90,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(25),
+          ),
+          child: Row(
+            children: [
+              IconButton(
+                onPressed: () {
+                  _searchbartoggle = !_searchbartoggle;
+                  setState(() {});
+                },
+                icon: Icon(
+                  FontAwesomeIcons.circleXmark,
+                ),
+              ),
+              Expanded(
+                child: TextField(
+                  focusNode: searchBarFocus,
+                  textInputAction: TextInputAction.none,
+                  autofocus: _searchbartoggle,
+                  decoration: InputDecoration(
+                    hintText: 'Buradan arayın',
+                    border: InputBorder.none,
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+      secondChild: InkWell(
+        onTap: () async {
+          _searchbartoggle = !_searchbartoggle;
+          setState(() {});
+          await Future.delayed(ProjectDurations.lowDuration);
+          searchBarFocus.requestFocus();
+        },
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(
+              0,
+              ProjectMargins.searchBarMargin * 2,
+              ProjectMargins.searchBarMargin,
+              0),
+          child: Container(
+            height: ProjectIconSizes.iConSearchBar,
+            width: ProjectIconSizes.iConSearchBar,
+            decoration: BoxDecoration(
+              borderRadius:
+                  BorderRadius.circular(ProjectIconSizes.iConSearchBar),
+            ),
+            child: const Icon(
+              Icons.search,
+            ),
+          ),
+        ),
+      ),
+      crossFadeState: _searchbartoggle
+          ? CrossFadeState.showFirst
+          : CrossFadeState.showSecond,
+    );
+  }
+}
+
+extension SizeExtension on BuildContext {
+  double getheight() {
+    return MediaQuery.of(this).size.height;
   }
 }

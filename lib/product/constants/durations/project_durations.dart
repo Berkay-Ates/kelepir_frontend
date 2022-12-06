@@ -1,3 +1,3 @@
 class ProjectDurations {
-  static const lowDuration = Duration(seconds: 5);
+  static const lowDuration = Duration(milliseconds: 500);
 }
