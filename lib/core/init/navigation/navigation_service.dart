@@ -2,7 +2,6 @@ import 'package:go_router/go_router.dart';
 import 'package:kelepir/core/enums/navigations_enum/navigation_enums.dart';
 import 'package:kelepir/feature/auth/view/authentication_view.dart';
 import 'package:kelepir/feature/no_connection/no_connection.dart';
-import 'package:kelepir/product/widgets/dummyViews.dart';
 import '../../../feature/home/view/home_view.dart';
 
 class NavigationService {
@@ -18,6 +17,7 @@ class NavigationService {
     routes: <GoRoute>[
       GoRoute(path: NavigationEnums.auth.routeName, builder: ((context, state) => const AuthenticationView())),
       GoRoute(path: NavigationEnums.home.routeName, builder: (context, state) => const HomeView()),
+      //GoRoute(path: NavigationEnums.splash.routeName, builder: (context, state) => const SplashView()),
     ],
     errorBuilder: ((context, state) => const NoConnectionView()),
   );

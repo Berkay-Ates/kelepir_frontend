@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum TabEnums { map, list, profile, extra }
+enum TabEnums { map, list, extra, profile }
 
 extension UpperCase on TabEnums {
   String upperCaseFirstLetter() {

@@ -5,6 +5,11 @@ import '../iappTheme/iapp_theme.dart';
 
 class ProjectDarkTheme extends IDarkTheme with IAppTheme {
   @override
-  ThemeData get themeData => ThemeData.dark()
-      .copyWith(appBarTheme: const AppBarTheme(systemOverlayStyle: SystemUiOverlayStyle.light, centerTitle: true));
+  ThemeData get themeData => ThemeData.dark().copyWith(
+          appBarTheme: const AppBarTheme(
+        systemOverlayStyle: SystemUiOverlayStyle.light,
+        centerTitle: true,
+        color: Colors.transparent,
+        elevation: 0,
+      ));
 }

@@ -57,6 +57,7 @@ abstract class _AuthModelView with Store, IBaseView {
 
   Future<void> initAndSetShared() async {
     await sharedPref?.initShared(); //*singleton icerisindeki shared preferences objesi artık null degil
+    //inspect(sharedPref?.getSharedObject);
     sharedManager = SharedPreferencesManager(sharedPref?.getSharedObject);
     checkUserToken();
   }
@@ -64,7 +65,7 @@ abstract class _AuthModelView with Store, IBaseView {
   @action
   void checkUserToken() {
     String? token = sharedManager?.getString(SharedKeyEnums.userTokenKey);
-    if (token != null) {
+    if (token != null && token.isNotEmpty) {
       TokenManagement.instance.setToken(token);
       isTokenExists = true;
       navigationService.router.go(NavigationEnums.home.routeName);

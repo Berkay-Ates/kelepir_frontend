@@ -10,10 +10,9 @@ class DummyViews extends StatefulWidget {
 class _DummyViewsState extends State<DummyViews> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Column(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [Text(widget.infoText), Text(widget.infoText), Text(widget.infoText), Text(widget.infoText)],
-    ));
+    );
   }
 }
