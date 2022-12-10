@@ -73,6 +73,38 @@ mixin _$AuthModelView on _AuthModelView, Store {
     });
   }
 
+  late final _$surnameControllerAtom =
+      Atom(name: '_AuthModelView.surnameController', context: context);
+
+  @override
+  TextEditingController get surnameController {
+    _$surnameControllerAtom.reportRead();
+    return super.surnameController;
+  }
+
+  @override
+  set surnameController(TextEditingController value) {
+    _$surnameControllerAtom.reportWrite(value, super.surnameController, () {
+      super.surnameController = value;
+    });
+  }
+
+  late final _$usernameControllerAtom =
+      Atom(name: '_AuthModelView.usernameController', context: context);
+
+  @override
+  TextEditingController get usernameController {
+    _$usernameControllerAtom.reportRead();
+    return super.usernameController;
+  }
+
+  @override
+  set usernameController(TextEditingController value) {
+    _$usernameControllerAtom.reportWrite(value, super.usernameController, () {
+      super.usernameController = value;
+    });
+  }
+
   late final _$isLoadingAtom =
       Atom(name: '_AuthModelView.isLoading', context: context);
 
@@ -163,6 +195,8 @@ connectivityEnums: ${connectivityEnums},
 emailController: ${emailController},
 nameController: ${nameController},
 passwordController: ${passwordController},
+surnameController: ${surnameController},
+usernameController: ${usernameController},
 isLoading: ${isLoading},
 isTokenExists: ${isTokenExists}
     ''';

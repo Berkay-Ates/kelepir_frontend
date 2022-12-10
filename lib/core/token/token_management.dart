@@ -6,9 +6,16 @@ class TokenManagement {
   }
 
   String token = '';
+  String imageId = '';
+  String imagePhonePath = '';
 
   void setToken(String token) => this.token = token;
+  void setImageToken(String image) => imageId = image;
+  void setImagePath(String imagePath) => imagePhonePath = imagePath;
+
   String get getToken => token;
+  String get getImagePath => imagePhonePath;
+  String get getImageToken => imageId;
 
   TokenManagement._();
 }

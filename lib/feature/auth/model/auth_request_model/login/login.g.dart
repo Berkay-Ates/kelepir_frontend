@@ -1,20 +1,17 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'auth_enroll.dart';
+part of 'login.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-UserEnroll _$UserEnrollFromJson(Map<String, dynamic> json) => UserEnroll(
-      name: json['name'] as String?,
-      email: json['email'] as String?,
+Login _$LoginFromJson(Map<String, dynamic> json) => Login(
+      username: json['username'] as String?,
       password: json['password'] as String?,
     );
 
-Map<String, dynamic> _$UserEnrollToJson(UserEnroll instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'email': instance.email,
+Map<String, dynamic> _$LoginToJson(Login instance) => <String, dynamic>{
+      'username': instance.username,
       'password': instance.password,
     };

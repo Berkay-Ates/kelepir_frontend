@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../core/base_view/base_view_model.dart';
+import '../../../core/enums/navigations_enum/navigation_enums.dart';
 import '../../../core/enums/networkEnum/network_enum.dart';
 import '../../no_connection/no_connection.dart';
 import '../view_model/auth_view_model.dart';
 
-class AuthenticationView extends StatefulWidget {
-  const AuthenticationView({super.key});
+class LoginView extends StatefulWidget {
+  const LoginView({super.key});
   @override
-  State<AuthenticationView> createState() => _AuthenticationViewState();
+  State<LoginView> createState() => _LoginViewState();
 }
 
-class _AuthenticationViewState extends State<AuthenticationView> {
+class _LoginViewState extends State<LoginView> {
   final GlobalKey<FormState> key = GlobalKey();
 
   @override
@@ -27,7 +28,12 @@ class _AuthenticationViewState extends State<AuthenticationView> {
       }),
       onPageBuilder: ((BuildContext context, AuthModelView modelView) {
         return Scaffold(
-          appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
+          appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              title: Observer(builder: (_) {
+                return modelView.isLoading ? const SizedBox.shrink() : const Text('Login');
+              })),
           body: Observer(
             builder: (_) => modelView.connectivityEnums == NetworkConnectivityEnums.offline
                 ? const NoConnectionView()
@@ -43,48 +49,36 @@ class _AuthenticationViewState extends State<AuthenticationView> {
                           child: Column(
                             children: [
                               TextFormField(
-                                controller: modelView.nameController,
+                                controller: modelView.usernameController,
                                 validator: modelView.validateFields,
                                 textInputAction: TextInputAction.next,
                                 decoration: const InputDecoration(
-                                    label: Text('name'),
+                                    label: Text('username'),
                                     border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),
                               ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(vertical: 12.0),
                                 child: TextFormField(
-                                  controller: modelView.emailController,
+                                  controller: modelView.passwordController,
                                   validator: modelView.validateFields,
                                   keyboardType: TextInputType.emailAddress,
                                   textInputAction: TextInputAction.next,
                                   decoration: const InputDecoration(
-                                      label: Text('email'),
+                                      label: Text('password'),
                                       border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),
                                 ),
-                              ),
-                              TextFormField(
-                                controller: modelView.passwordController,
-                                validator: modelView.validateFields,
-                                textInputAction: TextInputAction.next,
-                                decoration: const InputDecoration(
-                                    label: Text('password'),
-                                    border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 24.0),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    ElevatedButton(
-                                        onPressed: () {
-                                          modelView.registerUser();
-                                        },
-                                        child: const Text('SignUp')),
-                                    ElevatedButton(
-                                        onPressed: () {
-                                          modelView.signInUser();
-                                        },
-                                        child: const Text('SignIn')),
+                                    ElevatedButton(onPressed: modelView.signInUser, child: const Text('SignIn')),
+                                    const Text('OR', style: TextStyle(color: Colors.white38)),
+                                    TextButton(
+                                        onPressed: () =>
+                                            modelView.navigationService.router.go(NavigationEnums.register.routeName),
+                                        child: const Text('Register Page'))
                                   ],
                                 ),
                               ),

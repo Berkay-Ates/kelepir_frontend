@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 
+import '../../../../product/constants/baseUrl/base_url.dart';
+
 class ProjectServiceDio {
   //* eager singleton
   static final ProjectServiceDio _instance = ProjectServiceDio._();
@@ -13,8 +15,4 @@ class ProjectServiceDio {
   ProjectServiceDio._() {
     _dio = Dio(BaseOptions(baseUrl: UrlConstants.baseUrl));
   }
-}
-
-abstract class UrlConstants {
-  static const String baseUrl = 'https://mobile-pentest.onrender.com';
 }

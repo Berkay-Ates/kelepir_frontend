@@ -4,10 +4,10 @@ part 'user_enrol_response.g.dart';
 
 @JsonSerializable()
 class UserEnrollResult {
-  User? user;
-  String? token;
+  String? accessToken;
+  String? tokenType;
 
-  UserEnrollResult({this.user, this.token});
+  UserEnrollResult({this.accessToken, this.tokenType});
 
   factory UserEnrollResult.fromJson(Map<String, dynamic> json) {
     return _$UserEnrollResultFromJson(json);
@@ -15,23 +15,5 @@ class UserEnrollResult {
 
   Map<String, dynamic> toJson() {
     return _$UserEnrollResultToJson(this);
-  }
-}
-
-@JsonSerializable()
-class User {
-  String? sId;
-  String? name;
-  String? email;
-  String? password;
-
-  User({this.sId, this.name, this.email, this.password});
-
-  factory User.fromJson(Map<String, dynamic> json) {
-    return _$UserFromJson(json);
-  }
-
-  Map<String, dynamic> toJson() {
-    return _$UserToJson(this);
   }
 }

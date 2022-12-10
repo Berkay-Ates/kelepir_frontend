@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:kelepir/core/init/cache/shared_manager.dart';
 import 'package:kelepir/core/init/theme/apptheme/app_theme.dart';
-import 'package:kelepir/core/init/theme/darkTheme/dark_theme.dart';
 
+import 'core/init/cache/singleton_shared_pref/singleton_shared_pref.dart';
 import 'core/init/navigation/navigation_service.dart';
+import 'core/init/theme/lightTheme/light_theme.dart';
 
-void main() {
+void main() async {
   runApp(MyApp());
 }
 
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: ProjectAppTheme<ProjectDarkTheme>(appTheme: ProjectDarkTheme()).themeData,
+      theme: ProjectAppTheme<ProjectLightTheme>(appTheme: ProjectLightTheme()).themeData,
       routeInformationParser: navigationService.router.routeInformationParser,
       routeInformationProvider: navigationService.router.routeInformationProvider,
       routerDelegate: navigationService.router.routerDelegate,

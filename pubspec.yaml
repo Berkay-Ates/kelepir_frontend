@@ -49,6 +49,11 @@ dependencies:
   #google-maps
   google_maps_flutter: ^2.2.1
 
+  #image-picker
+  image_picker: ^0.8.6
+  geolocator: ^9.0.2
+  anim_search_bar: ^2.0.2
+
 flutter_native_splash:
   color: "#eeeeee"
   image: "assets/icons/ic_splash.png"
@@ -74,6 +79,7 @@ flutter:
     - assets/lottie_files/lottie_noconnection.json
     - assets/lottie_files/lottie_changetheme.json
     - assets/icons/ic_splash.png
+    - assets/icons/kelepir_logo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

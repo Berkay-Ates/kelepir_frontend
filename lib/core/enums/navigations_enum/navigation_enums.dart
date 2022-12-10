@@ -1,7 +1,9 @@
 enum NavigationEnums {
-  auth('/'),
+  login('/'),
+  register('/register'),
   home('/home'),
-  splash('/splash');
+  splash('/splash'),
+  image('/image');
 
   final String routeName;
   const NavigationEnums(this.routeName);

@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:kelepir/feature/auth/model/auth_request_model/auth_enroll.dart';
 import 'package:mobx/mobx.dart';
 import '../../../core/base_view/ibase_view.dart';
 import '../../../core/enums/networkEnum/network_enum.dart';
@@ -12,6 +11,8 @@ import '../../../core/init/network/connectivity/interface/inetwork_connectivity.
 import '../../../core/init/network/connectivity/network_connectivity.dart';
 import '../../../core/enums/navigations_enum/navigation_enums.dart';
 import '../../../core/token/token_management.dart';
+import '../model/auth_request_model/login/login.dart';
+import '../model/auth_request_model/register/register.dart';
 import '../model/auth_response_model/user_enrol_response.dart';
 
 part 'auth_view_model.g.dart';
@@ -38,6 +39,12 @@ abstract class _AuthModelView with Store, IBaseView {
   TextEditingController passwordController = TextEditingController();
 
   @observable
+  TextEditingController surnameController = TextEditingController();
+
+  @observable
+  TextEditingController usernameController = TextEditingController();
+
+  @observable
   bool isLoading = true;
 
   @observable
@@ -57,7 +64,6 @@ abstract class _AuthModelView with Store, IBaseView {
 
   Future<void> initAndSetShared() async {
     await sharedPref?.initShared(); //*singleton icerisindeki shared preferences objesi artık null degil
-    //inspect(sharedPref?.getSharedObject);
     sharedManager = SharedPreferencesManager(sharedPref?.getSharedObject);
     checkUserToken();
   }
@@ -67,6 +73,7 @@ abstract class _AuthModelView with Store, IBaseView {
     String? token = sharedManager?.getString(SharedKeyEnums.userTokenKey);
     if (token != null && token.isNotEmpty) {
       TokenManagement.instance.setToken(token);
+      inspect(TokenManagement.instance.getToken);
       isTokenExists = true;
       navigationService.router.go(NavigationEnums.home.routeName);
     } else {
@@ -87,23 +94,28 @@ abstract class _AuthModelView with Store, IBaseView {
   @action
   Future<void> registerUser() async {
     isLoading = true;
-    final UserEnroll user = UserEnroll(
+    final Register user = Register(
       name: nameController.text,
       email: emailController.text,
       password: passwordController.text,
+      surname: surnameController.text,
+      username: usernameController.text,
     );
     try {
-      final result = await projectDio?.post('/api/v1/mobile-pentest/auth/register', data: user.toJson());
+      final result = await projectDio?.post('/user/newUser', data: user.toJson());
+
       if (result?.data is Map<String, dynamic>) {
         final UserEnrollResult enrolResult = UserEnrollResult.fromJson(result?.data);
-        final userToken = enrolResult.token;
-        if (userToken != null) {
+        final userToken = enrolResult.accessToken;
+
+        if (userToken != null && userToken.isNotEmpty) {
           isTokenExists = await sharedManager?.saveString(SharedKeyEnums.userTokenKey, userToken) ?? false;
           TokenManagement.instance.setToken(userToken);
           navigationService.router.go(NavigationEnums.home.routeName);
         }
       }
     } on Exception catch (e) {
+      print('error');
       inspect(e);
     }
     isLoading = false;
@@ -112,19 +124,18 @@ abstract class _AuthModelView with Store, IBaseView {
   @action
   Future<void> signInUser() async {
     isLoading = true;
-    final UserEnroll user = UserEnroll(
-      name: nameController.text,
-      email: emailController.text,
-      password: passwordController.text,
-    );
+    final Login login = Login(username: usernameController.text, password: passwordController.text);
     try {
       //* yapılan post istegi proje genelindek iServiceRequests'lerinden tureyen bie sınıfta yapılması gerekirdi
-      final result = await projectDio?.post('/api/v1/mobile-pentest/auth/login', data: user.toJson());
+      final result = await projectDio?.post('/user/login', data: login.toJson());
+
       if (result?.data is Map<String, dynamic>) {
         final UserEnrollResult enrolResult = UserEnrollResult.fromJson(result?.data);
-        final userToken = enrolResult.token;
+        final userToken = enrolResult.accessToken;
+        inspect(userToken);
         if (userToken != null) {
           isTokenExists = await sharedManager?.saveString(SharedKeyEnums.userTokenKey, userToken) ?? false;
+          inspect(isTokenExists);
           TokenManagement.instance.setToken(userToken);
           navigationService.router.go(NavigationEnums.home.routeName);
         }

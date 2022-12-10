@@ -25,6 +25,69 @@ mixin _$HomeModelView on _HomeModelView, Store {
     });
   }
 
+  late final _$imageUploadManagerAtom =
+      Atom(name: '_HomeModelView.imageUploadManager', context: context);
+
+  @override
+  ImageUploadManager get imageUploadManager {
+    _$imageUploadManagerAtom.reportRead();
+    return super.imageUploadManager;
+  }
+
+  @override
+  set imageUploadManager(ImageUploadManager value) {
+    _$imageUploadManagerAtom.reportWrite(value, super.imageUploadManager, () {
+      super.imageUploadManager = value;
+    });
+  }
+
+  late final _$imageAtom = Atom(name: '_HomeModelView.image', context: context);
+
+  @override
+  XFile? get image {
+    _$imageAtom.reportRead();
+    return super.image;
+  }
+
+  @override
+  set image(XFile? value) {
+    _$imageAtom.reportWrite(value, super.image, () {
+      super.image = value;
+    });
+  }
+
+  late final _$productPostsAtom =
+      Atom(name: '_HomeModelView.productPosts', context: context);
+
+  @override
+  List<ProductResults?> get productPosts {
+    _$productPostsAtom.reportRead();
+    return super.productPosts;
+  }
+
+  @override
+  set productPosts(List<ProductResults?> value) {
+    _$productPostsAtom.reportWrite(value, super.productPosts, () {
+      super.productPosts = value;
+    });
+  }
+
+  late final _$imagesAtom =
+      Atom(name: '_HomeModelView.images', context: context);
+
+  @override
+  List<dynamic> get images {
+    _$imagesAtom.reportRead();
+    return super.images;
+  }
+
+  @override
+  set images(List<dynamic> value) {
+    _$imagesAtom.reportWrite(value, super.images, () {
+      super.images = value;
+    });
+  }
+
   late final _$isMapScreenAtom =
       Atom(name: '_HomeModelView.isMapScreen', context: context);
 
@@ -91,6 +154,30 @@ mixin _$HomeModelView on _HomeModelView, Store {
     return _$deleteTokenAsyncAction.run(() => super.deleteToken());
   }
 
+  late final _$getProductsAsyncAction =
+      AsyncAction('_HomeModelView.getProducts', context: context);
+
+  @override
+  Future<void> getProducts() {
+    return _$getProductsAsyncAction.run(() => super.getProducts());
+  }
+
+  late final _$getImageAsyncAction =
+      AsyncAction('_HomeModelView.getImage', context: context);
+
+  @override
+  Future<dynamic> getImage(String? imageId) {
+    return _$getImageAsyncAction.run(() => super.getImage(imageId));
+  }
+
+  late final _$uploadImageAsyncAction =
+      AsyncAction('_HomeModelView.uploadImage', context: context);
+
+  @override
+  Future<String?> uploadImage(String? file) {
+    return _$uploadImageAsyncAction.run(() => super.uploadImage(file));
+  }
+
   late final _$_HomeModelViewActionController =
       ActionController(name: '_HomeModelView', context: context);
 
@@ -109,6 +196,10 @@ mixin _$HomeModelView on _HomeModelView, Store {
   String toString() {
     return '''
 connectivityEnums: ${connectivityEnums},
+imageUploadManager: ${imageUploadManager},
+image: ${image},
+productPosts: ${productPosts},
+images: ${images},
 isMapScreen: ${isMapScreen},
 isLoading: ${isLoading},
 selectedIndx: ${selectedIndx}

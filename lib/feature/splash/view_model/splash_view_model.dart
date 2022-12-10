@@ -66,7 +66,7 @@ abstract class _SplashModelView with Store, IBaseView {
       isTokenExists = true;
       navigationService.router.go(NavigationEnums.home.routeName);
     } else {
-      navigationService.router.go(NavigationEnums.auth.routeName);
+      navigationService.router.go(NavigationEnums.register.routeName);
     }
   }
 
