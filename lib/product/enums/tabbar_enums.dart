@@ -11,13 +11,13 @@ extension UpperCase on TabEnums {
   IconData getIcons() {
     switch (this) {
       case TabEnums.map:
-        return FontAwesomeIcons.locationPin;
+        return Icons.map_outlined;
       case TabEnums.list:
         return FontAwesomeIcons.list;
       case TabEnums.profile:
         return Icons.person;
       case TabEnums.extra:
-        return FontAwesomeIcons.road;
+        return Icons.directions;
     }
   }
 }

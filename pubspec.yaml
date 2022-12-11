@@ -55,6 +55,7 @@ dependencies:
   anim_search_bar: ^2.0.2
   font_awesome_flutter: ^10.3.0
   outline_search_bar: ^2.3.0
+  font_awesome: ^5.10.1
 
 flutter_native_splash:
   color: "#eeeeee"

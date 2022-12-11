@@ -11,8 +11,8 @@ import '../../../product/constants/ic_sizes/icon_size.dart';
 import '../../../product/constants/margins/margins.dart';
 import '../../../product/constants/paddings/project_paddings.dart';
 import '../../../product/enums/tabbar_enums.dart';
-import '../../../product/widgets/dummy_views.dart';
 import '../../List_view/view/list_view.dart';
+import '../../route_view/route_view.dart';
 import '../../user_settings/view/user_settings_view.dart';
 import '../view_model/home_model_view.dart';
 
@@ -22,8 +22,7 @@ class HomeView extends StatefulWidget {
   State<HomeView> createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView>
-    with TickerProviderStateMixin, SheetMixin {
+class _HomeViewState extends State<HomeView> with TickerProviderStateMixin, SheetMixin {
   late final _tabController;
 
   final String title = 'Home View';
@@ -49,27 +48,21 @@ class _HomeViewState extends State<HomeView>
               floatingActionButton: Observer(builder: (_) {
                 return FloatingActionButton(
                     onPressed: () async {
-                      final image =
-                          await showPhotoModelBottomSheet(context, modelView);
+                      final image = await showPhotoModelBottomSheet(context, modelView);
                     },
                     child: const Icon(
                       Icons.add_a_photo_outlined,
                     ));
               }),
-              floatingActionButtonLocation:
-                  FloatingActionButtonLocation.centerDocked,
+              floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
               drawer: Drawer(
                 child: Padding(
                   padding: const EdgeInsets.all(ProjectPaddings.smallx3),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
-                          'Here we will put some notification and similar stuff',
-                          textAlign: TextAlign.center),
-                      TextButton(
-                          onPressed: modelView.deleteToken,
-                          child: const Text('Logout'))
+                      const Text('Here we will put some notification and similar stuff', textAlign: TextAlign.center),
+                      TextButton(onPressed: modelView.deleteToken, child: const Text('Logout'))
                     ],
                   ),
                 ),
@@ -91,36 +84,26 @@ class _HomeViewState extends State<HomeView>
                               enableFeedback: false,
                               padding: EdgeInsets.zero,
                               onPressed: () {
-                                modelView.setTabIndx(
-                                    TabEnums.map.index, _tabController);
+                                modelView.setTabIndx(TabEnums.map.index, _tabController);
                               },
                               icon: Icon(TabEnums.map.getIcons()),
-                              color:
-                                  modelView.selectedIndx == TabEnums.map.index
-                                      ? Colors.white
-                                      : Colors.white54,
-                              iconSize:
-                                  modelView.selectedIndx == TabEnums.map.index
-                                      ? ProjectIconSizes.iConTabbarSelected
-                                      : ProjectIconSizes.iConTabbarnormal,
+                              color: modelView.selectedIndx == TabEnums.map.index ? Colors.white : Colors.white54,
+                              iconSize: modelView.selectedIndx == TabEnums.map.index
+                                  ? ProjectIconSizes.iConTabbarSelected
+                                  : ProjectIconSizes.iConTabbarnormal,
                             ),
                           ),
                           Expanded(
                             child: IconButton(
                               padding: EdgeInsets.zero,
                               onPressed: () {
-                                modelView.setTabIndx(
-                                    TabEnums.list.index, _tabController);
+                                modelView.setTabIndx(TabEnums.list.index, _tabController);
                               },
                               icon: Icon(TabEnums.list.getIcons()),
-                              color:
-                                  modelView.selectedIndx == TabEnums.list.index
-                                      ? Colors.white
-                                      : Colors.white54,
-                              iconSize:
-                                  modelView.selectedIndx == TabEnums.list.index
-                                      ? ProjectIconSizes.iConTabbarSelected
-                                      : ProjectIconSizes.iConTabbarnormal,
+                              color: modelView.selectedIndx == TabEnums.list.index ? Colors.white : Colors.white54,
+                              iconSize: modelView.selectedIndx == TabEnums.list.index
+                                  ? ProjectIconSizes.iConTabbarSelected
+                                  : ProjectIconSizes.iConTabbarnormal,
                             ),
                           ),
                           const Spacer(),
@@ -128,34 +111,24 @@ class _HomeViewState extends State<HomeView>
                             child: IconButton(
                               padding: EdgeInsets.zero,
                               onPressed: () {
-                                modelView.setTabIndx(
-                                    TabEnums.extra.index, _tabController);
+                                modelView.setTabIndx(TabEnums.extra.index, _tabController);
                               },
                               icon: Icon(TabEnums.extra.getIcons()),
-                              color:
-                                  modelView.selectedIndx == TabEnums.extra.index
-                                      ? Colors.white
-                                      : Colors.white54,
-                              iconSize:
-                                  modelView.selectedIndx == TabEnums.extra.index
-                                      ? ProjectIconSizes.iConTabbarSelected
-                                      : ProjectIconSizes.iConTabbarnormal,
+                              color: modelView.selectedIndx == TabEnums.extra.index ? Colors.white : Colors.white54,
+                              iconSize: modelView.selectedIndx == TabEnums.extra.index
+                                  ? ProjectIconSizes.iConTabbarSelected
+                                  : ProjectIconSizes.iConTabbarnormal,
                             ),
                           ),
                           Expanded(
                             child: IconButton(
                               padding: EdgeInsets.zero,
                               onPressed: () {
-                                modelView.setTabIndx(
-                                    TabEnums.profile.index, _tabController);
+                                modelView.setTabIndx(TabEnums.profile.index, _tabController);
                               },
                               icon: Icon(TabEnums.profile.getIcons()),
-                              color: modelView.selectedIndx ==
-                                      TabEnums.profile.index
-                                  ? Colors.white
-                                  : Colors.white54,
-                              iconSize: modelView.selectedIndx ==
-                                      TabEnums.profile.index
+                              color: modelView.selectedIndx == TabEnums.profile.index ? Colors.white : Colors.white54,
+                              iconSize: modelView.selectedIndx == TabEnums.profile.index
                                   ? ProjectIconSizes.iConTabbarSelected
                                   : ProjectIconSizes.iConTabbarnormal,
                             ),
@@ -169,7 +142,9 @@ class _HomeViewState extends State<HomeView>
                   children: [
                     MapHome(),
                     ProductListView(modelView: modelView),
-                    const DummyViews(infoText: 'page view'),
+                    RouteView(
+                      modelView: modelView,
+                    ),
                     UserSettings(modelView: modelView),
                   ],
                 );
@@ -181,12 +156,10 @@ class _HomeViewState extends State<HomeView>
 }
 
 mixin SheetMixin {
-  Future<T?> showPhotoModelBottomSheet<T>(
-      BuildContext context, HomeModelView modelView) {
+  Future<T?> showPhotoModelBottomSheet<T>(BuildContext context, HomeModelView modelView) {
     return showModalBottomSheet<T>(
       backgroundColor: Colors.grey[300],
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
       enableDrag: true,
       context: context,
       builder: (context) {
@@ -194,19 +167,15 @@ mixin SheetMixin {
           padding: const EdgeInsets.all(12.0),
           child: Observer(builder: (_) {
             return modelView.isLoading
-                ? const SizedBox(
-                    height: 200,
-                    child: Center(child: CircularProgressIndicator()))
+                ? const SizedBox(height: 200, child: Center(child: CircularProgressIndicator()))
                 : Column(mainAxisSize: MainAxisSize.min, children: [
                     const BaseSheetHeader(),
                     TextButton(
                         onPressed: () async {
-                          modelView.image =
-                              await ImageUploadManager().fetchFromGallery();
+                          modelView.image = await ImageUploadManager().fetchFromGallery();
                           if (modelView.image?.path != null) {
                             await modelView.uploadImage(modelView.image!.path);
-                            modelView.navigationService.router
-                                .go(NavigationEnums.image.routeName);
+                            modelView.navigationService.router.go(NavigationEnums.image.routeName);
                           }
                         },
                         child: const Text(
@@ -215,12 +184,10 @@ mixin SheetMixin {
                         )),
                     TextButton(
                         onPressed: () async {
-                          modelView.image =
-                              await ImageUploadManager().fetchFromCamera();
+                          modelView.image = await ImageUploadManager().fetchFromCamera();
                           if (modelView.image?.path != null) {
                             await modelView.uploadImage(modelView.image!.path);
-                            modelView.navigationService.router
-                                .go(NavigationEnums.image.routeName);
+                            modelView.navigationService.router.go(NavigationEnums.image.routeName);
                           }
                         },
                         child: const Text(
