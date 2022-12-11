@@ -28,9 +28,9 @@ class _ImageViewState extends State<ImageView> {
         }),
         onPageBuilder: ((context, modelView) {
           return Scaffold(
-            appBar: AppBar(title: const Text('image upload')),
             body: Observer(
-              builder: (_) => modelView.connectivityEnums == NetworkConnectivityEnums.offline
+              builder: (_) => modelView.connectivityEnums ==
+                      NetworkConnectivityEnums.offline
                   ? const NoConnectionView()
                   : modelView.isLoading
                       ? const Center(
@@ -39,31 +39,58 @@ class _ImageViewState extends State<ImageView> {
                       : SingleChildScrollView(
                           child: Form(
                             key: key,
-                            autovalidateMode: AutovalidateMode.onUserInteraction,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
                             child: Padding(
                               padding: const EdgeInsets.all(20.0),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(bottom: ProjectPaddings.normal),
-                                    child: SizedBox(
-                                        height: context.getWidth() * 0.5,
-                                        child:
-                                            Image.file(fit: BoxFit.cover, File(TokenManagement.instance.getImagePath))),
+                                    padding: const EdgeInsets.only(
+                                        top: 100,
+                                        bottom: ProjectPaddings.normal),
+                                    child: Container(
+                                        color: Colors.black,
+                                        height: context.getWidth() * 0.6,
+                                        child: Image.file(
+                                            fit: BoxFit.cover,
+                                            File(TokenManagement
+                                                .instance.getImagePath))),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: TextFormField(
-                                      controller: modelView.explonationController,
+                                      controller:
+                                          modelView.explonationController,
                                       validator: modelView.validateFields,
-                                      minLines: 3,
+                                      minLines: 2,
                                       maxLines: 8,
                                       textInputAction: TextInputAction.next,
                                       decoration: const InputDecoration(
-                                          label: Text('Explonation'),
-                                          border:
-                                              OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),
+                                        hintStyle: TextStyle(
+                                            fontFamily: 'Montserrat',
+                                            fontWeight: FontWeight.bold),
+                                        hintText: 'Açıklama',
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.black, width: 1),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10)),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.black, width: 1),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10)),
+                                        ),
+                                        border: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.black, width: 1),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10)),
+                                        ),
+                                      ),
                                     ),
                                   ),
                                   Padding(
@@ -73,9 +100,25 @@ class _ImageViewState extends State<ImageView> {
                                       validator: modelView.validateFields,
                                       textInputAction: TextInputAction.next,
                                       decoration: const InputDecoration(
-                                          label: Text('Product Category'),
-                                          border:
-                                              OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),
+                                          hintStyle: TextStyle(
+                                              fontFamily: 'Montserrat',
+                                              fontWeight: FontWeight.bold),
+                                          hintText: 'Kategori',
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.black, width: 1),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10)),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.black, width: 1),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10)),
+                                          ),
+                                          border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10)))),
                                     ),
                                   ),
                                   Padding(
@@ -85,9 +128,25 @@ class _ImageViewState extends State<ImageView> {
                                       validator: modelView.validateFields,
                                       textInputAction: TextInputAction.next,
                                       decoration: const InputDecoration(
-                                          label: Text('Brand Name'),
-                                          border:
-                                              OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),
+                                          hintStyle: TextStyle(
+                                              fontFamily: 'Montserrat',
+                                              fontWeight: FontWeight.bold),
+                                          hintText: 'Marka İsmi',
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.black, width: 1),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10)),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.black, width: 1),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10)),
+                                          ),
+                                          border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10)))),
                                     ),
                                   ),
                                   Padding(
@@ -97,32 +156,112 @@ class _ImageViewState extends State<ImageView> {
                                       validator: modelView.validateFields,
                                       textInputAction: TextInputAction.next,
                                       decoration: const InputDecoration(
-                                          label: Text('Store Name'),
-                                          border:
-                                              OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),
+                                          hintStyle: TextStyle(
+                                              fontFamily: 'Montserrat',
+                                              fontWeight: FontWeight.bold),
+                                          hintText: 'Mağaza İsmi',
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.black, width: 1),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10)),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.black, width: 1),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10)),
+                                          ),
+                                          border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(10)))),
                                     ),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
-                                    child: TextFormField(
-                                      controller: modelView.priceController,
-                                      validator: modelView.validateFields,
-                                      keyboardType: TextInputType.number,
-                                      textInputAction: TextInputAction.next,
-                                      decoration: const InputDecoration(
-                                          label: Text('Price'),
-                                          border:
-                                              OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: TextFormField(
+                                            controller:
+                                                modelView.priceController,
+                                            validator: modelView.validateFields,
+                                            keyboardType: TextInputType.number,
+                                            textInputAction:
+                                                TextInputAction.next,
+                                            decoration: const InputDecoration(
+                                                hintStyle: TextStyle(
+                                                    fontFamily: 'Montserrat',
+                                                    fontWeight: FontWeight
+                                                        .bold),
+                                                hintText: 'Fiyat',
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Colors.black,
+                                                      width: 1),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(10)),
+                                                ),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: Colors.black,
+                                                      width: 1),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(10)),
+                                                ),
+                                                border: OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                10)))),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10.0),
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              modelView.postProduct();
+                                            },
+                                            child: Container(
+                                                width: 160,
+                                                height: 60,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                  gradient:
+                                                      const LinearGradient(
+                                                    begin: Alignment.bottomLeft,
+                                                    end: Alignment.topRight,
+                                                    colors: <Color>[
+                                                      Color(0xff1b50c2),
+                                                      Color(0xff1976e8),
+                                                    ], // Gradient from https://learnui.design/tools/gradient-generator.html
+                                                    tileMode: TileMode.mirror,
+                                                  ),
+                                                ),
+                                                child: const Padding(
+                                                  padding: EdgeInsets.all(8.0),
+                                                  child: Center(
+                                                    child: Text('Yayınla',
+                                                        style: TextStyle(
+                                                            fontFamily:
+                                                                'Montserrat',
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: Colors.white,
+                                                            fontSize: 20)),
+                                                  ),
+                                                )),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: ElevatedButton(
-                                        onPressed: () {
-                                          modelView.postProduct();
-                                        },
-                                        child: const Text('upload')),
-                                  )
                                 ],
                               ),
                             ),
@@ -133,3 +272,5 @@ class _ImageViewState extends State<ImageView> {
         }));
   }
 }
+
+//modelView.postProduct();

@@ -7,8 +7,9 @@ import '../iappTheme/iapp_theme.dart';
 class ProjectLightTheme extends ILightTheme with IAppTheme {
   @override
   ThemeData get themeData => ThemeData.light().copyWith(
-      appBarTheme: AppBarTheme(
-          foregroundColor: lightThemeArguments!.blackColor,
-          systemOverlayStyle: SystemUiOverlayStyle.dark,
-          centerTitle: true));
+        appBarTheme: AppBarTheme(
+            foregroundColor: lightThemeArguments!.blackColor,
+            systemOverlayStyle: SystemUiOverlayStyle.dark,
+            centerTitle: true),
+      );
 }

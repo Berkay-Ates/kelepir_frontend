@@ -22,67 +22,154 @@ class _LoginViewState extends State<LoginView> {
       onModelReady: ((modelView) {
         modelView.setContext(context);
         modelView.init();
-        modelView.networkConnectivity.streamNetworkConnectivity((connectivityResultEnum) {
+        modelView.networkConnectivity
+            .streamNetworkConnectivity((connectivityResultEnum) {
           modelView.connectivityEnums = connectivityResultEnum;
         });
       }),
       onPageBuilder: ((BuildContext context, AuthModelView modelView) {
         return Scaffold(
-          appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              title: Observer(builder: (_) {
-                return modelView.isLoading ? const SizedBox.shrink() : const Text('Login');
-              })),
           body: Observer(
-            builder: (_) => modelView.connectivityEnums == NetworkConnectivityEnums.offline
+            builder: (_) => modelView.connectivityEnums ==
+                    NetworkConnectivityEnums.offline
                 ? const NoConnectionView()
                 : modelView.isLoading
                     ? const Center(
                         child: CircularProgressIndicator(),
                       )
-                    : Form(
-                        key: key,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        child: Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Column(
-                            children: [
-                              TextFormField(
-                                controller: modelView.usernameController,
-                                validator: modelView.validateFields,
-                                textInputAction: TextInputAction.next,
-                                decoration: const InputDecoration(
-                                    label: Text('username'),
-                                    border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 12.0),
-                                child: TextFormField(
-                                  controller: modelView.passwordController,
-                                  validator: modelView.validateFields,
-                                  keyboardType: TextInputType.emailAddress,
-                                  textInputAction: TextInputAction.next,
-                                  decoration: const InputDecoration(
-                                      label: Text('password'),
-                                      border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),
+                    : SingleChildScrollView(
+                        child: Form(
+                          key: key,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          child: Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 100, bottom: 50),
+                                  child: Image.asset(
+                                    'assets/icons/kelepir_logo.png',
+                                    width: 150,
+                                    height: 150,
+                                  ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 24.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 25.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    children: [
+                                      const Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 8.0),
+                                        child: Text(
+                                          'Kullanıcı adı',
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 20),
+                                        ),
+                                      ),
+                                      TextFormField(
+                                        controller:
+                                            modelView.usernameController,
+                                        validator: modelView.validateFields,
+                                        textInputAction: TextInputAction.next,
+                                        decoration: InputDecoration(
+                                          filled: true,
+                                          fillColor: Colors.grey[300],
+                                          border: OutlineInputBorder(
+                                            borderSide: BorderSide.none,
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
                                   children: [
-                                    ElevatedButton(onPressed: modelView.signInUser, child: const Text('SignIn')),
-                                    const Text('OR', style: TextStyle(color: Colors.white38)),
-                                    TextButton(
-                                        onPressed: () =>
-                                            modelView.navigationService.router.go(NavigationEnums.register.routeName),
-                                        child: const Text('Register Page'))
+                                    const Padding(
+                                      padding:
+                                          const EdgeInsets.only(bottom: 8.0),
+                                      child: Text(
+                                        'Şifre',
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20),
+                                      ),
+                                    ),
+                                    TextFormField(
+                                      controller: modelView.passwordController,
+                                      validator: modelView.validateFields,
+                                      textInputAction: TextInputAction.next,
+                                      decoration: InputDecoration(
+                                        filled: true,
+                                        fillColor: Colors.grey[300],
+                                        border: OutlineInputBorder(
+                                          borderSide: BorderSide.none,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                      ),
+                                    ),
                                   ],
                                 ),
-                              ),
-                            ],
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 24.0),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 15.0),
+                                        child: ElevatedButton(
+                                            style: ButtonStyle(
+                                                shape: MaterialStateProperty.all<
+                                                        RoundedRectangleBorder>(
+                                                    RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(25.0),
+                                            ))),
+                                            onPressed: modelView.signInUser,
+                                            child: const SizedBox(
+                                                width: 100,
+                                                height: 50,
+                                                child: Center(
+                                                    child: Text('Giriş Yap',
+                                                        style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 20,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ))))),
+                                      ),
+                                      TextButton(
+                                          onPressed: () => modelView
+                                              .navigationService.router
+                                              .go(NavigationEnums
+                                                  .register.routeName),
+                                          child: const Text(
+                                            'Kayıt Ol',
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 20,
+                                            ),
+                                          ))
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),

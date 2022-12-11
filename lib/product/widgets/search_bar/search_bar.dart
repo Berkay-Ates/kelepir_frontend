@@ -11,6 +11,7 @@ class search_bar extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.9,
       textController: _textEditingController,
       onSuffixTap: () {},
+      rtl: true,
     );
   }
 }

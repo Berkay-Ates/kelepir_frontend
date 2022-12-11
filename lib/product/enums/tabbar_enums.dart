@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 enum TabEnums { map, list, extra, profile }
 
@@ -10,13 +11,13 @@ extension UpperCase on TabEnums {
   IconData getIcons() {
     switch (this) {
       case TabEnums.map:
-        return Icons.pin_drop_outlined;
+        return FontAwesomeIcons.locationPin;
       case TabEnums.list:
-        return Icons.shopify_outlined;
+        return FontAwesomeIcons.list;
       case TabEnums.profile:
-        return Icons.person_outline_outlined;
+        return Icons.person;
       case TabEnums.extra:
-        return Icons.extension_rounded;
+        return FontAwesomeIcons.road;
     }
   }
 }

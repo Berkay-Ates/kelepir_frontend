@@ -19,10 +19,10 @@ class BaseSheetHeader extends StatelessWidget {
         alignment: Alignment.topCenter,
         children: [
           Divider(
-            color: Theme.of(context).colorScheme.onSecondary,
+            color: Colors.black,
             thickness: 3,
-            indent: context.getWidth() * 0.45,
-            endIndent: context.getWidth() * 0.45,
+            indent: context.getWidth() * 0.4,
+            endIndent: context.getWidth() * 0.4,
           ),
           Positioned(
               right: context.getWidth() * 0.02,
