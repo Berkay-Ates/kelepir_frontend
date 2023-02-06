@@ -18,7 +18,7 @@ For help getting started with Flutter development, view the
 samples, guidance on mobile development, and a full API reference.
 
 To visualize you what is inside the app
-![This is an image](https://firebasestorage.googleapis.com/v0/b/clash-cards-77641.appspot.com/o/img_1.jpg?alt=media)
+![This is an image](https://firebasestorage.googleapis.com/v0/b/clash-cards-77641.appspot.com/o/img_1.jpg?alt=media =1820x810)
 ![This is an image](https://firebasestorage.googleapis.com/v0/b/clash-cards-77641.appspot.com/o/img_2.jpg?alt=media)
 ![This is an image](https://firebasestorage.googleapis.com/v0/b/clash-cards-77641.appspot.com/o/img_3.jpg?alt=media)
 ![This is an image](https://firebasestorage.googleapis.com/v0/b/clash-cards-77641.appspot.com/o/img_4.jpg?alt=media)
